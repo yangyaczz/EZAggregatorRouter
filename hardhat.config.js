@@ -4,7 +4,6 @@ require("dotenv").config()
 /** @type import('hardhat/config').HardhatUserConfig */    
 
 
-
 const forkingUrl = process.env.forkingUrl;
 const goerliUrl = process.env.goerliUrl
 const goerliAccount = process.env.goerliAccount
@@ -16,14 +15,14 @@ module.exports = {
     hardhat: {
       chainId: 1,
       forking:{
-        url: forkingUrl,
-        blockNumber: 16246090,    // 16246090 buy // 16232197 sell
+        url: goerliUrl,  // forkingUrl
+        blockNumber: 8221940,    // mainnet-- 16246090 buy  16232197 sell   //  goerli 8221940 sell
       }
     },
 
     goerli: {
       url: goerliUrl,
-      // accounts: [goerliAccount]
+      accounts: goerliAccount
     },
   }
 };
