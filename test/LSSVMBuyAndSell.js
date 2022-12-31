@@ -47,8 +47,8 @@ describe("aggregator buy nft test", function () {
     console.log(
       "before execute taker nft balance:",
       await nft.balanceOf(alice.address),
-      "before execute relayer nft balance:",
-      await nft.balanceOf(sr.address)
+      "before execute pool nft balance:",
+      await nft.balanceOf("0x339e7004372e04b1d59443f0ddc075efd9d80360")
     );
     /////
 
@@ -89,8 +89,8 @@ describe("aggregator buy nft test", function () {
     console.log(
       "after execute taker nft balance:",
       await nft.balanceOf(alice.address),
-      "after execute relayer nft balance:",
-      await nft.balanceOf(sr.address)
+      "after execute pool nft balance:",
+      await nft.balanceOf("0x339e7004372e04b1d59443f0ddc075efd9d80360")
     );
   });
 
@@ -150,8 +150,8 @@ describe("aggregator buy nft test", function () {
     console.log(
       "after execute sell taker nft balance:",
       await nft.balanceOf(alice.address),
-      "after execute sell relayer nft balance:",
-      await nft.balanceOf(sr.address)
+      "after execute sell pool nft balance:",
+      await nft.balanceOf("0x339e7004372e04b1d59443f0ddc075efd9d80360")
     );
   });
 });

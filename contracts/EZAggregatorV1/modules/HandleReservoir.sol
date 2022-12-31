@@ -38,7 +38,7 @@ abstract contract HandleReservoir is RouterImmutables {
 
     function handleReservoirSell(
         ReservoirOfferStruct[] memory reservoirOffers
-    ) public {
+    ) internal {
         for (uint256 i; i < reservoirOffers.length; ) {
             ReservoirOfferStruct memory reservoirOffer = reservoirOffers[i];
 

@@ -17,10 +17,10 @@ abstract contract HandleLSSVM {
         bytes memory data,
         address nftOwner,
         LSSVMSellNftStruct[] memory sellNfts
-    ) public returns (bool success, bytes memory output){
+    ) internal returns (bool success, bytes memory output){
 
         // transfer NFT to this address
-        for (uint256 j = 0; j < sellNfts.length; j++) {
+        for (uint256 j = 0; j < sellNfts.length; ) {
             LSSVMSellNftStruct memory sellNft = sellNfts[j];
             uint256[] memory tokenIds = sellNft.tokenIds;
             address token = sellNft.collection;
@@ -38,6 +38,10 @@ abstract contract HandleLSSVM {
             } else {
                 revert("TokenStandard Error");
             }
+
+            unchecked{
+                ++j;
+            }
         }
 
         // call LSSVM router
@@ -45,7 +49,7 @@ abstract contract HandleLSSVM {
 
 
         // if trade fail, transfer NFT back to user
-        for (uint256 k = 0; k < sellNfts.length; k++) {
+        for (uint256 k = 0; k < sellNfts.length; ) {
             LSSVMSellNftStruct memory sellNft = sellNfts[k];
             uint256[] memory tokenIds = sellNft.tokenIds;
             address token = sellNft.collection;
@@ -63,6 +67,10 @@ abstract contract HandleLSSVM {
                 }
             } else {
                 revert("TokenStandard Error");
+            }
+
+            unchecked{
+                ++k;
             }
         }
 
