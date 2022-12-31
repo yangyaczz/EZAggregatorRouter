@@ -5,8 +5,10 @@ coverage.json
 typechain
 typechain-types
 others
+.openzeppelin
 
 #Hardhat files
 cache
 artifacts
+
 
