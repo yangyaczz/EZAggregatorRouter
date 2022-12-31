@@ -1,6 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity ^0.8.17;
 
+import {HandleReservoir} from "../modules/HandleReservoir.sol";
+import {HandleLSSVM} from "../modules/HandleLSSVM.sol";
+
 import {Payments} from "../modules/Payments.sol";
 import {RouterImmutables} from "../base/RouterImmutables.sol";
 import {Callbacks} from "../base/Callbacks.sol";
@@ -11,42 +14,17 @@ import {ERC1155} from "solmate/src/tokens/ERC1155.sol";
 
 /// @title Decodes and Executes Commands
 /// @notice Called by the UniversalRouter contract to efficiently decode and execute a singular command
-abstract contract Dispatcher is Payments, Callbacks {
+abstract contract Dispatcher is
+    Payments,
+    HandleReservoir,
+    HandleLSSVM,
+    Callbacks
+{
     using Recipient for address;
 
     error InvalidCommandType(uint256 commandType);
     error InvalidOwnerERC721();
     error InvalidOwnerERC1155();
-
-    enum ReservoirOfferMarket {
-        OPENSEA,
-        LOOKSRARE,
-        X2Y2
-    }
-
-    struct ReservoirOfferStruct {
-        ReservoirOfferMarket offerMarket;
-        uint256 tokenStandard;
-        address collection;
-        uint256 tokenId;
-        uint256 tokenAmount;
-        bytes inputDate;
-        uint offerAmount;
-    }
-
-    function getOfferMarketAddress(
-        ReservoirOfferMarket offerMarket
-    ) internal view returns (address) {
-        if (offerMarket == ReservoirOfferMarket.OPENSEA) {
-            return SEAPORTMODULE; // SeaportModule
-        } else if (offerMarket == ReservoirOfferMarket.LOOKSRARE) {
-            return LOOKSRAREMODULE; // LooksRareModule
-        } else if (offerMarket == ReservoirOfferMarket.X2Y2) {
-            return X2Y2MODULE; // X2Y2Module
-        } else {
-            revert("OfferMarket Error");
-        }
-    }
 
     /// @notice Decodes and executes the given command with the given inputs
     /// @param commandType The command type to execute
@@ -65,73 +43,33 @@ abstract contract Dispatcher is Payments, Callbacks {
         if (command < 0x10) {
             // 0x00 <= command < 0x08
             if (command < 0x08) {
-                if (command == Commands.reservoirBuy) {
+                if (command == Commands.RESERVOIR_Buy) {
                     (uint256 value, bytes memory data) = abi.decode(
                         inputs,
                         (uint256, bytes)
                     );
 
                     (success, output) = RESERVOIR.call{value: value}(data);
-                    require(success, "buy call fail");
-                } else if (command == Commands.reservoirSell) {
+
+                } else if (command == Commands.RESERVOIR_Sell) {
                     ReservoirOfferStruct[] memory reservoirOffers = abi.decode(
                         inputs,
                         (ReservoirOfferStruct[])
                     );
 
-                    for (uint256 i; i < reservoirOffers.length; ) {
-                        ReservoirOfferStruct
-                            memory reservoirOffer = reservoirOffers[i];
-
-                        if (reservoirOffer.tokenStandard == 721) {
-                            uint256 beforeTransferBalance = WETH9.balanceOf(
-                                address(this)
-                            );
-                            ERC721(reservoirOffer.collection).safeTransferFrom(
-                                msg.sender,
-                                getOfferMarketAddress(
-                                    reservoirOffer.offerMarket
-                                ),
-                                reservoirOffer.tokenId,
-                                reservoirOffer.inputDate
-                            );
-                            uint256 afterTransferBalance = WETH9.balanceOf(
-                                address(this)
-                            );
-                            require(
-                                afterTransferBalance - beforeTransferBalance ==
-                                    reservoirOffer.offerAmount,
-                                "OfferAmount Error"
-                            );
-                        } else if (reservoirOffer.tokenStandard == 1155) {
-                            uint256 beforeTransferBalance = WETH9.balanceOf(
-                                address(this)
-                            );
-                            ERC1155(reservoirOffer.collection).safeTransferFrom(
-                                    msg.sender,
-                                    getOfferMarketAddress(
-                                        reservoirOffer.offerMarket
-                                    ),
-                                    reservoirOffer.tokenId,
-                                    reservoirOffer.tokenAmount,
-                                    reservoirOffer.inputDate
-                                );
-                            uint256 afterTransferBalance = WETH9.balanceOf(
-                                address(this)
-                            );
-                            require(
-                                afterTransferBalance - beforeTransferBalance ==
-                                    reservoirOffer.offerAmount,
-                                "OfferAmount Error"
-                            );
-                        } else {
-                            revert("TokenStandard Error");
-                        }
-
-                        unchecked {
-                            ++i;
-                        }
-                    }
+                    HandleReservoir.handleReservoirSell(reservoirOffers);
+                } else if (command == Commands.WRAP_ETH) {
+                    (address recipient, uint256 amountMin) = abi.decode(
+                        inputs,
+                        (address, uint256)
+                    );
+                    Payments.wrapETH(recipient.map(), amountMin);
+                } else if (command == Commands.UNWRAP_WETH) {
+                    (address recipient, uint256 amountMin) = abi.decode(
+                        inputs,
+                        (address, uint256)
+                    );
+                    Payments.unwrapWETH9(recipient.map(), amountMin);
                 } else if (command == Commands.SWEEP) {
                     (address token, address recipient, uint256 amountMin) = abi
                         .decode(inputs, (address, address, uint256));
@@ -144,37 +82,63 @@ abstract contract Dispatcher is Payments, Callbacks {
                     (address token, address recipient, uint256 bips) = abi
                         .decode(inputs, (address, address, uint256));
                     Payments.payPortion(token, recipient.map(), bips);
+                } else if (command == Commands.COMMAND_PLACEHOLDER_0x07) {
+                    // placeholder for a future command
+                    revert InvalidCommandType(command);
                 }
                 // 0x08 <= command < 0x10
             } else {
-                if (command == Commands.WRAP_ETH) {
-                    (address recipient, uint256 amountMin) = abi.decode(
+                if (command == Commands.SUDOSWAP_Buy) {
+                    (uint256 value, bytes memory data) = abi.decode(
                         inputs,
-                        (address, uint256)
+                        (uint256, bytes)
                     );
-                    Payments.wrapETH(recipient.map(), amountMin);
-                } else if (command == Commands.UNWRAP_WETH) {
-                    (address recipient, uint256 amountMin) = abi.decode(
+                    (success, output) = SUDOSWAP.call{value: value}(data);
+                } else if (command == Commands.SUDOSWAP_Sell) {
+                    (
+                        bytes memory data,
+                        address nftOwner,
+                        LSSVMSellNftStruct[] memory sellNfts
+                    ) = abi.decode(
+                            inputs,
+                            (bytes, address, LSSVMSellNftStruct[])
+                        );
+
+                    (success, output) = HandleLSSVM.handleLSSVMSell(
+                        SUDOSWAP,
+                        data,
+                        nftOwner,
+                        sellNfts
+                    );
+                } else if (command == Commands.EZSWAP_Buy) {
+                    (uint256 value, bytes memory data) = abi.decode(
                         inputs,
-                        (address, uint256)
+                        (uint256, bytes)
                     );
-                    Payments.unwrapWETH9(recipient.map(), amountMin);
-                }
-            }
-            // 0x10 <= command
-        } else {
-            // 0x10 <= command < 0x18
-            if (command < 0x18) {
-                if (command == Commands.SWEEP_ERC721) {
+                    (success, output) = EZSWAP.call{value: value}(data);
+                } else if (command == Commands.EZSWAP_Sell) {
+                    (
+                        bytes memory data,
+                        address nftOwner,
+                        LSSVMSellNftStruct[] memory sellNfts
+                    ) = abi.decode(
+                            inputs,
+                            (bytes, address, LSSVMSellNftStruct[])
+                        );
+
+                    (success, output) = HandleLSSVM.handleLSSVMSell(
+                        EZSWAP,
+                        data,
+                        nftOwner,
+                        sellNfts
+                    );
+                } else if (command == Commands.SWEEP_ERC721) {
                     (address token, address recipient, uint256 id) = abi.decode(
                         inputs,
                         (address, address, uint256)
                     );
                     Payments.sweepERC721(token, recipient.map(), id);
-                }
-                // 0x18 <= command < 0x1f
-            } else {
-                if (command == Commands.SWEEP_ERC1155) {
+                } else if (command == Commands.SWEEP_ERC1155) {
                     (
                         address token,
                         address recipient,
@@ -185,8 +149,20 @@ abstract contract Dispatcher is Payments, Callbacks {
                             (address, address, uint256, uint256)
                         );
                     Payments.sweepERC1155(token, recipient.map(), id, amount);
+                } else if (command == Commands.COMMAND_PLACEHOLDER_0x0e) {
+                    // placeholder for a future command
+                    revert InvalidCommandType(command);
+                } else if (command == Commands.COMMAND_PLACEHOLDER_0x0f) {
+                    // placeholder for a future command
+                    revert InvalidCommandType(command);
                 }
             }
+            // 0x10 <= command
+        } else {
+            // 0x10 <= command < 0x18
+            // 0x18 <= command < 0x1f
+            // placeholder for a future command
+            revert InvalidCommandType(command);
         }
     }
 }

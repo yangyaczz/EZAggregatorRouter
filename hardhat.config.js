@@ -15,8 +15,8 @@ module.exports = {
     hardhat: {
       chainId: 1,
       forking:{
-        url: goerliUrl,  // forkingUrl
-        blockNumber: 8221940,    // mainnet-- 16246090 buy  16232197 sell   //  goerli 8221940 sell
+        url: forkingUrl,  // forkingUrl
+        blockNumber: 16232197,    // mainnet-- 16246090 buy  16232197 sell   //  goerli 8221940 sell
       }
     },
 
