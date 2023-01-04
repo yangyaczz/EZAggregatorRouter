@@ -13,7 +13,19 @@ setGlobalDispatcher(proxyAgent)
 const forkingUrl = process.env.forkingUrl;
 const goerliUrl = process.env.goerliUrl
 const goerliAccount = process.env.goerliAccount
+
+const maticUrl = process.env.maticUrl
+const maticAccount = process.env.maticAccount
+
+const mainnetUrl = process.env.mainnetUrl
+const mainnetAccount = process.env.mainnetAccount
+
+
 const etherscanApiKey = process.env.etherscanApiKey
+const maticscanApiKey = process.env.maticscanApiKey
+
+
+
 module.exports = {
 
   // compilers: [
@@ -39,9 +51,20 @@ module.exports = {
       url: goerliUrl,
       accounts: [goerliAccount]
     },
+
+    matic: {
+      url: maticUrl,
+      accounts: [maticAccount]
+    },
+
+    mainnet: {
+      url : mainnetUrl,
+      accounts: [mainnetAccount]
+    }
+
   },
 
   etherscan: {
-    apiKey: etherscanApiKey
+    apiKey: maticscanApiKey
   }
 };
