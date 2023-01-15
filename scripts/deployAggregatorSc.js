@@ -1,4 +1,4 @@
-const { ethers } = require("hardhat");
+const { ethers } = require("hardhat"); 
 
 async function main() {
   [alice] = await ethers.getSigners();
