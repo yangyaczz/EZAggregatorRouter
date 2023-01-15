@@ -25,9 +25,11 @@ async function main() {
 
   const EZA = await ethers.getContractFactory("EZAggregatorV1RouterUpgrade");
 
-  const eza = await upgrades.deployProxy(EZA, [paramsConstractorGoerli], {
-    initializer: "initialize",
+
+  const eza = await upgrades.deployProxy(EZA, [], {
+    constructorArgs: [paramsConstractorMainnet],
   });
+
 
   await eza.deployed();
 

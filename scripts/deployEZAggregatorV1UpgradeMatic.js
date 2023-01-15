@@ -13,8 +13,9 @@ async function main() {
 
   const EZA = await ethers.getContractFactory("EZAggregatorV1RouterUpgradeMatic");
 
-  const eza = await upgrades.deployProxy(EZA, [paramsConstractorMatic], {
-    initializer: "initialize",
+
+  const eza = await upgrades.deployProxy(EZA, [], {
+    constructorArgs: [paramsConstractorMatic],
   });
 
   await eza.deployed();

@@ -19,7 +19,7 @@ describe("loop sell nft mulit test", function () {
     // let tokenid = 7980
     // let nftTokenId = "0xbCe3781ae7Ca1a5e050Bd9C4c77369867eBc307e:7980"
 
-    let blocknumber = 16409906
+    let blocknumber = 16413803
     let nfttrader = "0x64C362d2fF237f44C8a774A973984886dBd9B21D"
     let nftAddress = "0x67d9417c9c3c250f61a83c7e8658dac487b56b09"
     let tokenid = 7055
@@ -63,7 +63,7 @@ describe("loop sell nft mulit test", function () {
         weth = new ethers.Contract(wethAddress, wethABI, alice);
 
         const SR = await ethers.getContractFactory("EZAggregatorV1Router")
-        sr = await SR.attach("0xac3e3114784b46a8b201c07B69Db87BBCDbc9179")
+        sr = await SR.attach("0x6afb4Bb77e6770f0584CB83AeA5e6E57EEe346C6")
         //////////////////////
     });
 

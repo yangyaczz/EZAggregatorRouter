@@ -2,7 +2,6 @@
 pragma solidity ^0.8.17;
 
 import {IWETH9} from "../interfaces/IWETH9.sol";
-import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
 struct RouterParameters {
     address weth9;
@@ -13,7 +12,7 @@ struct RouterParameters {
 
 /// @title Router Immutable Storage contract
 /// @notice Used along with the `RouterParameters` struct for ease of cross-chain deployment
-contract RouterImmutables is Initializable {
+contract RouterImmutables {
     /// @dev WETH9 address
     IWETH9 internal WETH9;
 
@@ -26,7 +25,8 @@ contract RouterImmutables is Initializable {
     // @dev EZ's router address
     address internal EZSWAP;
 
-    function initialize(RouterParameters memory params) external initializer {
+    /// @custom:oz-upgrades-unsafe-allow constructor
+    constructor(RouterParameters memory params) {
         WETH9 = IWETH9(params.weth9);
         RESERVOIR = params.reservoir;
         SEAPORTMODULE = params.seaportModule;

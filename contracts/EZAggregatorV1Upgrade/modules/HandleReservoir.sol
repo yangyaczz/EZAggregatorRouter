@@ -17,11 +17,14 @@ abstract contract HandleReservoir is RouterImmutables {
         uint256 tokenStandard;
         address collection;
         uint256 tokenId;
-        uint256 tokenAmount;
+        uint256 tokenAmount; 
         bytes inputDate;
         uint offerAmount;
     }
 
+    /// @notice look for the market
+    /// @param offerMarket enum for market
+    /// @return address of market
     function getOfferMarketAddress(
         ReservoirOfferMarket offerMarket
     ) internal view returns (address) {
@@ -32,10 +35,12 @@ abstract contract HandleReservoir is RouterImmutables {
         } else if (offerMarket == ReservoirOfferMarket.X2Y2) {
             return X2Y2MODULE; // X2Y2Module
         } else {
-            revert("OfferMarket Error");
+            revert("HandleReservoir:OfferMarket Error");
         }
     }
 
+    /// @notice sell NFT
+    /// @param reservoirOffers data about offer
     function handleReservoirSell(
         ReservoirOfferStruct[] memory reservoirOffers
     ) internal {
@@ -52,9 +57,9 @@ abstract contract HandleReservoir is RouterImmutables {
                 );
                 uint256 afterTransferBalance = WETH9.balanceOf(address(this));
                 require(
-                    afterTransferBalance - beforeTransferBalance ==
+                    afterTransferBalance - beforeTransferBalance >=
                         reservoirOffer.offerAmount,
-                    "OfferAmount Error"
+                    "HandleReservoir:OfferAmount Error"
                 );
             } else if (reservoirOffer.tokenStandard == 1155) {
                 uint256 beforeTransferBalance = WETH9.balanceOf(address(this));
@@ -67,12 +72,12 @@ abstract contract HandleReservoir is RouterImmutables {
                 );
                 uint256 afterTransferBalance = WETH9.balanceOf(address(this));
                 require(
-                    afterTransferBalance - beforeTransferBalance ==
+                    afterTransferBalance - beforeTransferBalance >=
                         reservoirOffer.offerAmount,
-                    "OfferAmount Error"
+                    "HandleReservoir:OfferAmount Error"
                 );
             } else {
-                revert("TokenStandard Error");
+                revert("HandleReservoir:TokenStandard Error");
             }
 
             unchecked {
