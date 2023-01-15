@@ -6,6 +6,7 @@ typechain
 typechain-types
 others
 .openzeppelin
+reservoir.json
 
 #Hardhat files
 cache
