@@ -80,7 +80,7 @@
   },
   {
     "constant": false,
-    "inputs": [
+    "inputs": [ 
       { "name": "dst", "type": "address" },
       { "name": "wad", "type": "uint256" }
     ],

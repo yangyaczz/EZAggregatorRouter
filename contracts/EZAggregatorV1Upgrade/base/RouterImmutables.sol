@@ -3,7 +3,7 @@ pragma solidity ^0.8.17;
 
 import {IWETH9} from "../interfaces/IWETH9.sol";
 
-struct RouterParameters {
+struct RouterParameters { 
     address weth9;
     address reservoir;
     address seaportModule;

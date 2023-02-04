@@ -8,22 +8,31 @@ struct RouterParameters {
     address reservoir;
     address seaportModule;
     address ezswap;
+    address seaport;
 }
 
 /// @title Router Immutable Storage contract
 /// @notice Used along with the `RouterParameters` struct for ease of cross-chain deployment
 contract RouterImmutables {
     /// @dev WETH9 address
-    IWETH9 internal WETH9;
+    /// @custom:oz-upgrades-unsafe-allow state-variable-immutable
+    IWETH9 internal immutable WETH9;
 
     /// @dev Reservoir address
-    address internal RESERVOIR;
+    /// @custom:oz-upgrades-unsafe-allow state-variable-immutable
+    address internal immutable RESERVOIR;
 
     /// @dev SeaportModule address
-    address internal SEAPORTMODULE;
+    /// @custom:oz-upgrades-unsafe-allow state-variable-immutable
+    address internal immutable SEAPORTMODULE;
 
     // @dev EZ's router address
-    address internal EZSWAP;
+    /// @custom:oz-upgrades-unsafe-allow state-variable-immutable
+    address internal immutable EZSWAP; 
+
+    // @dev seaport address
+    /// @custom:oz-upgrades-unsafe-allow state-variable-immutable
+    address internal immutable SEAPORT; 
 
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor(RouterParameters memory params) {
@@ -31,5 +40,6 @@ contract RouterImmutables {
         RESERVOIR = params.reservoir;
         SEAPORTMODULE = params.seaportModule;
         EZSWAP = params.ezswap;
+        SEAPORT = params.seaport;
     }
 }

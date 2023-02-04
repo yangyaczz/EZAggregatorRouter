@@ -1424,7 +1424,7 @@
   },
   {
     "inputs": [
-      {
+      { 
         "components": [
           {
             "internalType": "address",

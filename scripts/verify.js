@@ -8,7 +8,7 @@ async function main() {
     //         {
     //             weth9: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
     //             reservoir: "0x178A86D36D89c7FDeBeA90b739605da7B131ff6A",
-    //             seaportModule: "0x3729014ef28f01B3ddCF7f980D925E0B71b1F847",
+    //             seaportModule: "0x20794EF7693441799a3f38FCC22a12b3E04b9572",
     //             looksRareModule: "0x385df8CBC196f5f780367F3cDC96aF072a916F7E",
     //             x2y2Module: "0x613D3c588F6B8f89302b463F8F19f7241B2857E2",
     //             sudoswap: "0x2B2e8cDA09bBA9660dCA5cB6233787738Ad68329",
@@ -18,7 +18,7 @@ async function main() {
     // });
 
     await hre.run("verify:verify", {
-        address: "0x91480745b42aF6B988d373b187E47F043722BecB",
+        address: "0x4ED5B37e9B4E9633d4A37a6291176535d307Fa6e",
         constructorArguments: [
             {
                 weth9: "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270",  // wmatic
