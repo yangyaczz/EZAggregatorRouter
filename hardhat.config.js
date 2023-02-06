@@ -6,7 +6,7 @@ require("dotenv").config()
 /** @type import('hardhat/config').HardhatUserConfig */    
 
 const { setGlobalDispatcher, ProxyAgent } = require('undici')
-const proxyAgent = new ProxyAgent('http://127.0.0.1:7890')
+const proxyAgent = new ProxyAgent('https://127.0.0.1:7890')
 setGlobalDispatcher(proxyAgent)
 
 
@@ -16,6 +16,8 @@ const goerliAccount = process.env.goerliAccount
 
 const maticUrl = process.env.maticUrl
 const maticAccount = process.env.maticAccount
+const maticAccount2 = process.env.maticAccount2
+
 
 const mainnetUrl = process.env.mainnetUrl
 const mainnetAccount = process.env.mainnetAccount
@@ -57,8 +59,9 @@ module.exports = {
       chainId: 137,
       forking:{
         // url: "https://polygon-mainnet.g.alchemy.com/v2/VKUc1_zI9zmEaXNsiDNY0KynQE6rKMsp",  // matic
-        url :"https://rpc.ankr.com/polygon",
-        blockNumber: 38892764, 
+        // url :"https://rpc.ankr.com/polygon",
+        url: "https://1rpc.io/matic",
+        blockNumber: 38968400,   // 38905500
       }
     },
 
@@ -68,8 +71,9 @@ module.exports = {
     },
 
     matic: {
-      url: maticUrl,
-      accounts: [maticAccount]
+      // url: maticUrl,
+      url :"https://rpc.ankr.com/polygon",
+      accounts: [maticAccount2]
     },
 
     mainnet: {

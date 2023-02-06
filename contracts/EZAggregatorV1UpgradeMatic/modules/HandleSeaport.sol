@@ -10,7 +10,7 @@ import {ERC20} from "solmate/src/tokens/ERC20.sol";
 abstract contract HandleSeaport is RouterImmutables {
     using SafeTransferLib for ERC20;
     using SafeTransferLib for address;
-    address constant Native_Token = 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE;
+    address constant Native_Token = 0x0000000000000000000000000000000000000000;
 
     struct SeaportListStruct {
         address tokenAddress;
