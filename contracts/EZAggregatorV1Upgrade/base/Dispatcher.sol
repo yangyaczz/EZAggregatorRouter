@@ -3,6 +3,7 @@ pragma solidity ^0.8.17;
 
 import {HandleReservoir} from "../modules/HandleReservoir.sol";
 import {HandleLSSVM} from "../modules/HandleLSSVM.sol";
+import {HandleSeaport} from "../modules/HandleSeaport.sol";
 
 import {Payments} from "../modules/Payments.sol";
 import {RouterImmutables} from "../base/RouterImmutables.sol";
@@ -16,6 +17,7 @@ import {ERC1155} from "solmate/src/tokens/ERC1155.sol";
 /// @notice Called by the UniversalRouter contract to efficiently decode and execute a singular command
 abstract contract Dispatcher is
     Payments,
+    HandleSeaport,
     HandleReservoir,
     HandleLSSVM,
     Callbacks
@@ -159,10 +161,20 @@ abstract contract Dispatcher is
             }
             // 0x10 <= command
         } else {
+            if (command == Commands.SEAPORT_BUY) {
+               
+            } else if (command == Commands.SEAPORT_SELL) {
+                SeaportListStructSell[] memory seaportLists = abi.decode(
+                    inputs,
+                    (SeaportListStructSell[])
+                );
+                (success, output) = HandleSeaport.handleSeaportSell(seaportLists);
+            } else {
+                revert InvalidCommandType(command);
+            }
             // 0x10 <= command < 0x18
             // 0x18 <= command < 0x1f
             // placeholder for a future command
-            revert InvalidCommandType(command);
         }
     }
 }

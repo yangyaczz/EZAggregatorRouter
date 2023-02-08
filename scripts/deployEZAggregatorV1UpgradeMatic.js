@@ -9,8 +9,7 @@ async function main() {
     seaportModule: "0xe225aFD0B78a265a60CCaEB1c1310e0016716E7B", // SeaportModule 
     ezswap: "0x6D7fBa7979334fC173a42eA8FEF31698318a845A", // ezswaprouter matic
     seaport: "0x00000000006c3852cbEf3e08E8dF289169EdE581"  // seaport
-};
-
+  };
 
   const EZA = await ethers.getContractFactory("EZAggregatorV1RouterUpgradeMatic");
 
