@@ -147,9 +147,13 @@ abstract contract Dispatcher is
                     inputs,
                     (SeaportListStruct[])
                 );
-                HandleSeaport.handleSeaportBuy(seaportLists);
+                (success, output) = HandleSeaport.handleSeaportBuy(seaportLists);
             } else if (command == Commands.SEAPORT_SELL) {
-                /// xxxxx
+                SeaportListStructSell[] memory seaportLists = abi.decode(
+                    inputs,
+                    (SeaportListStructSell[])
+                );
+                (success, output) = HandleSeaport.handleSeaportSell(seaportLists);
             } else {
                 revert InvalidCommandType(command);
             }

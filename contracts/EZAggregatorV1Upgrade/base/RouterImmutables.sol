@@ -11,6 +11,7 @@ struct RouterParameters {
     address x2y2Module;
     address sudoswap;
     address ezswap;
+    address seaport;
 }
 
 /// @title Router Immutable Storage contract
@@ -44,6 +45,10 @@ contract RouterImmutables {
     /// @custom:oz-upgrades-unsafe-allow state-variable-immutable
     address internal immutable EZSWAP;
 
+    // @dev seaport address
+    /// @custom:oz-upgrades-unsafe-allow state-variable-immutable
+    address internal immutable SEAPORT;
+
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor(RouterParameters memory params) {
         WETH9 = IWETH9(params.weth9);
@@ -53,6 +58,7 @@ contract RouterImmutables {
         X2Y2MODULE = params.x2y2Module;
         SUDOSWAP = params.sudoswap;
         EZSWAP = params.ezswap;
+        SEAPORT = params.seaport;
     }
 
 }
