@@ -6,8 +6,8 @@ const nft1155ABI = require("./abis/ERC1155.json");
 const wethABI = require("./abis/WETH.json")
 
 const seaportABI = require("./abis/Seaport.json")
-
-describe("aggregator matic buy erc20 nft test", function () {
+//block number 16574265
+describe("seaport sell nft", function () {
     let alice;
     let nft;
     let sr;
@@ -44,7 +44,7 @@ describe("aggregator matic buy erc20 nft test", function () {
         seaportInterface = new ethers.utils.Interface(seaportABI);
 
 
-        const paramsConstractorMatic = {
+        const paramsConstractor = {
             weth9: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
             reservoir: "0x178A86D36D89c7FDeBeA90b739605da7B131ff6A",
             seaportModule: "0x3729014ef28f01B3ddCF7f980D925E0B71b1F847",
@@ -58,7 +58,7 @@ describe("aggregator matic buy erc20 nft test", function () {
         const EZA = await ethers.getContractFactory("EZAggregatorV1RouterUpgrade");
 
         sr = await upgrades.deployProxy(EZA, [], {
-            constructorArgs: [paramsConstractorMatic],
+            constructorArgs: [paramsConstractor],
         });
 
         await sr.deployed();
@@ -67,7 +67,7 @@ describe("aggregator matic buy erc20 nft test", function () {
 
     });
 
-    it("reservior ERC20 buy", async () => {
+    it("seaport sell erc721 nft", async () => {
         const transactionHash = await alice.sendTransaction({
             to: nftOwner,
             value: ethers.utils.parseEther("1"), // Sends exactly 1.0 ether
@@ -128,7 +128,8 @@ describe("aggregator matic buy erc20 nft test", function () {
             '0x0000000000000000000000000000000000000000000000000000000000000000',
             BigNumber.from("2"),
             [[BigNumber.from("375000000000000"), "0x0000a26b00c1F0DF003000390027140000fAa719"], [BigNumber.from("1500000000000000"), "0x2614545d53eB5d026CB42C701dCaF3C7e7bccc89"]],
-            '0x9e3e015d915dc6746ee5ab4a229d405d052a0f20f7e38581d2f6874a0b4431820b22a7d079aaa29fe2cf9ec7f630a7dc725beb9028d8badbcb7f887e748bb1bd1b']
+            '0x9e3e015d915dc6746ee5ab4a229d405d052a0f20f7e38581d2f6874a0b4431820b22a7d079aaa29fe2cf9ec7f630a7dc725beb9028d8badbcb7f887e748bb1bd1b'
+        ]
 
         inputdata = await seaportInterface.encodeFunctionData("fulfillBasicOrder", [params])
 

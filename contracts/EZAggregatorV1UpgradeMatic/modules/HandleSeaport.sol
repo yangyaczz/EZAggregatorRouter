@@ -28,6 +28,8 @@ abstract contract HandleSeaport is RouterImmutables {
         address nftAddress;
         uint256 nftTokenId;
         uint256 nftAmount;
+        address tokenAddress;
+        uint256 tokenApproveAmount;
     }
 
     /// @notice buy NFT
@@ -94,13 +96,16 @@ abstract contract HandleSeaport is RouterImmutables {
         }
     }
 
-        /// @notice sell NFT
+    /// @notice sell NFT
     /// @param seaportLists data about list
     function handleSeaportSell(
         SeaportListStructSell[] memory seaportLists
     ) internal returns (bool success, bytes memory output) {
         for (uint256 i; i < seaportLists.length; ) {
             SeaportListStructSell memory seaportList = seaportLists[i];
+
+            ERC20 _token = ERC20(seaportList.tokenAddress);
+            _token.safeApprove(SEAPORT, seaportList.tokenApproveAmount);
 
             if (seaportList.nftStandard == 721) {
                 ERC721 _nft = ERC721(seaportList.nftAddress);
