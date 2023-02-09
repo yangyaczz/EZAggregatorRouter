@@ -61,7 +61,7 @@ module.exports = {
         // url: "https://polygon-mainnet.g.alchemy.com/v2/VKUc1_zI9zmEaXNsiDNY0KynQE6rKMsp",  // matic
         // url :"https://rpc.ankr.com/polygon",
         url: "https://1rpc.io/matic",
-        blockNumber: 38968400,   // 38905500
+        blockNumber: 39005278,   // 38905500
       }
     },
 

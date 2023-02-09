@@ -15,7 +15,7 @@ describe("aggregator matic buy 1155nft throught erc20 test", function () {
 
 
     let blocknumber = 38892764
-    let mockAddress = "0xc71c590eF9a4f4ebc5DF1c6A555dEeD3F8E721f5";  //  whale
+    let mockAddress = "0x5063e320F8CBBe347C374f7CFaaE3Fb392d98b78";  // nft  whale
     let nftAddress = "0x5c76677fea2bf5dd37e4f1460968a23a537e3ee3"  //   1155
 
 
@@ -26,120 +26,139 @@ describe("aggregator matic buy 1155nft throught erc20 test", function () {
 
 
     let apiDatas = [{
-        "id": "0xe213f0ccff7406b2f8cfa6b306ce0852e554eb42c21eeecc7c28f6cad183b32b",
+        "id": "0x8cbb5cefd14160b9f3555f561772e7a55248b5334d0f8c7603725320c002e5cd",
         "kind": "seaport",
-        "side": "sell",
+        "side": "buy",
         "status": "active",
-        "tokenSetId": "token:0x5c76677fea2bf5dd37e4f1460968a23a537e3ee3:0",
+        "tokenSetId": "contract:0x5c76677fea2bf5dd37e4f1460968a23a537e3ee3",
         "tokenSetSchemaHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
         "contract": "0x5c76677fea2bf5dd37e4f1460968a23a537e3ee3",
-        "maker": "0xc58d63d59ad68930c9fdff6f1ac479c5c9941ef4",
+        "maker": "0x101eb380d06e443c7d456aed63961b16e290d8c7",
         "taker": "0x0000000000000000000000000000000000000000",
         "price": {
-          "currency": {
-            "contract": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
-            "name": "USD Coin (PoS)",
-            "symbol": "USDC",
-            "decimals": 6
-          },
-          "amount": {
-            "raw": "7000000",
-            "decimal": 7,
-            "usd": 7.00542,
-            "native": 5.88025
-          },
-          "netAmount": {
-            "raw": "6265000",
-            "decimal": 6.265,
-            "usd": 6.26985,
-            "native": 5.26282
-          }
-        },
-        "validFrom": 1675344048,
-        "validUntil": 1677763248,
-        "quantityFilled": 1,
-        "quantityRemaining": 17,
-        "criteria": {
-          "kind": "token",
-          "data": {
-            "token": {
-              "tokenId": "0"
+            "currency": {
+                "contract": "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619",
+                "name": "Wrapped Ether",
+                "symbol": "WETH",
+                "decimals": 18
+            },
+            "amount": {
+                "raw": "2400000000000000",
+                "decimal": 0.0024,
+                "usd": 3.96307,
+                "native": 3.03386
+            },
+            "netAmount": {
+                "raw": "2148000000000000",
+                "decimal": 0.00215,
+                "usd": 3.54695,
+                "native": 2.7153
             }
-          }
+        },
+        "validFrom": 1675345137,
+        "validUntil": 1675949926,
+        "quantityFilled": 0,
+        "quantityRemaining": 5,
+        "criteria": {
+            "kind": "collection",
+            "data": {
+                "collection": {
+                    "id": "0x5c76677fea2bf5dd37e4f1460968a23a537e3ee3"
+                }
+            }
         },
         "source": {
-          "id": "0x5b3256965e7c3cf26e11fcaf296dfc8807c01073",
-          "domain": "opensea.io",
-          "name": "OpenSea",
-          "icon": "https://raw.githubusercontent.com/reservoirprotocol/indexer/v5/src/models/sources/opensea-logo.svg"
+            "id": "0x5b3256965e7c3cf26e11fcaf296dfc8807c01073",
+            "name": "OpenSea",
+            "icon": "https://raw.githubusercontent.com/reservoirprotocol/indexer/v5/src/models/sources/opensea-logo.svg",
+            "domain": "opensea.io"
         },
         "feeBps": 1050,
         "feeBreakdown": [
-          {
-            "bps": 250,
-            "kind": "marketplace",
-            "recipient": "0x0000a26b00c1f0df003000390027140000faa719"
-          },
-          {
-            "bps": 800,
-            "kind": "royalty",
-            "recipient": "0xa1640edd7b69a3bdf98cd9a6a61f663dcf6d2aa2"
-          }
+            {
+                "bps": 250,
+                "kind": "marketplace",
+                "recipient": "0x0000a26b00c1f0df003000390027140000faa719"
+            },
+            {
+                "bps": 800,
+                "kind": "royalty",
+                "recipient": "0xa1640edd7b69a3bdf98cd9a6a61f663dcf6d2aa2"
+            }
         ],
-        "expiration": 1677763248,
+        "expiration": 1675949926,
         "isReservoir": null,
-        "isDynamic": false,
-        "createdAt": "2023-02-02T13:23:04.302Z",
-        "updatedAt": "2023-02-03T08:47:22.938Z",
-        "rawData": {
-          "kind": "single-token",
-          "salt": "0x360c6ebe0000000000000000000000000000000000000000b88931e2816047ae",
-          "zone": "0x0000000000000000000000000000000000000000",
-          "offer": [
-            {
-              "token": "0x5c76677fea2bf5dd37e4f1460968a23a537e3ee3",
-              "itemType": 3,
-              "endAmount": "18",
-              "startAmount": "18",
-              "identifierOrCriteria": "0"
+        "createdAt": "2023-02-02T13:39:05.579Z",
+        "updatedAt": "2023-02-09T04:59:53.600Z",
+        "rawData": null
+    },
+    {
+        "id": "0x38ea25607eb10817eed75ae84b38291ae925c561461b07932c5aee9aa3f9b8ee",
+        "kind": "seaport",
+        "side": "buy",
+        "status": "active",
+        "tokenSetId": "contract:0x5c76677fea2bf5dd37e4f1460968a23a537e3ee3",
+        "tokenSetSchemaHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "contract": "0x5c76677fea2bf5dd37e4f1460968a23a537e3ee3",
+        "maker": "0x101eb380d06e443c7d456aed63961b16e290d8c7",
+        "taker": "0x0000000000000000000000000000000000000000",
+        "price": {
+            "currency": {
+                "contract": "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619",
+                "name": "Wrapped Ether",
+                "symbol": "WETH",
+                "decimals": 18
+            },
+            "amount": {
+                "raw": "600000000000000",
+                "decimal": 0.0006,
+                "usd": 0.99077,
+                "native": 0.75846
+            },
+            "netAmount": {
+                "raw": "537000000000000",
+                "decimal": 0.00054,
+                "usd": 0.88674,
+                "native": 0.67883
             }
-          ],
-          "counter": "0",
-          "endTime": 1677763248,
-          "offerer": "0xc58d63d59ad68930c9fdff6f1ac479c5c9941ef4",
-          "zoneHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "orderType": 1,
-          "signature": "0x8e59492a07a0341eb4d2af63d288760483bc5a0c18ea40bb7b8c50de8330fb2e4cc21677ed3c3131117048eed470e8b30aa76f8b9d4f3a0e57be50de3a88a1881b",
-          "startTime": 1675344048,
-          "conduitKey": "0x0000007b02230091a7ed01230072f7006a004d60a8d4e71d599b8104250f0000",
-          "consideration": [
+        },
+        "validFrom": 1675344403,
+        "validUntil": 1675949169,
+        "quantityFilled": 0,
+        "quantityRemaining": 6,
+        "criteria": {
+            "kind": "collection",
+            "data": {
+                "collection": {
+                    "id": "0x5c76677fea2bf5dd37e4f1460968a23a537e3ee3"
+                }
+            }
+        },
+        "source": {
+            "id": "0x5b3256965e7c3cf26e11fcaf296dfc8807c01073",
+            "name": "OpenSea",
+            "icon": "https://raw.githubusercontent.com/reservoirprotocol/indexer/v5/src/models/sources/opensea-logo.svg",
+            "domain": "opensea.io"
+        },
+        "feeBps": 1050,
+        "feeBreakdown": [
             {
-              "token": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
-              "itemType": 1,
-              "endAmount": "112770000",
-              "recipient": "0xc58d63d59ad68930c9fdff6f1ac479c5c9941ef4",
-              "startAmount": "112770000",
-              "identifierOrCriteria": "0"
+                "bps": 250,
+                "kind": "marketplace",
+                "recipient": "0x0000a26b00c1f0df003000390027140000faa719"
             },
             {
-              "token": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
-              "itemType": 1,
-              "endAmount": "3150000",
-              "recipient": "0x0000a26b00c1f0df003000390027140000faa719",
-              "startAmount": "3150000",
-              "identifierOrCriteria": "0"
-            },
-            {
-              "token": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
-              "itemType": 1,
-              "endAmount": "10080000",
-              "recipient": "0xa1640edd7b69a3bdf98cd9a6a61f663dcf6d2aa2",
-              "startAmount": "10080000",
-              "identifierOrCriteria": "0"
+                "bps": 800,
+                "kind": "royalty",
+                "recipient": "0xa1640edd7b69a3bdf98cd9a6a61f663dcf6d2aa2"
             }
-          ]
-        }
-      }]
+        ],
+        "expiration": 1675949169,
+        "isReservoir": null,
+        "createdAt": "2023-02-02T13:26:47.922Z",
+        "updatedAt": "2023-02-09T04:59:53.600Z",
+        "rawData": null
+    }]
 
     beforeEach(async () => {
 
@@ -197,11 +216,14 @@ describe("aggregator matic buy 1155nft throught erc20 test", function () {
 
 
         ///////////////////// 1 approve
-        await usdc.approve(sr.address, ethers.constants.MaxUint256)
-        await usdc.approve(seaport.address, ethers.constants.MaxUint256)
+        // await usdc.approve(sr.address, ethers.constants.MaxUint256)
+        // await usdc.approve(seaport.address, ethers.constants.MaxUint256)
 
-        await weth.approve(sr.address, ethers.constants.MaxUint256)
-        await weth.approve(seaport.address, ethers.constants.MaxUint256)
+        // await weth.approve(sr.address, ethers.constants.MaxUint256)
+        // await weth.approve(seaport.address, ethers.constants.MaxUint256)
+
+
+        await nft.approve(sr.address, true)
 
 
 
@@ -227,12 +249,11 @@ describe("aggregator matic buy 1155nft throught erc20 test", function () {
                 "counter": apiData.rawData.counter
             }
 
-
-
+            
             const advancedOrder = {
                 parameters: parameters,
-                numerator: ethers.BigNumber.from('1'),  // number of buy
-                denominator: ethers.BigNumber.from(apiData.rawData.offer[0].endAmount),
+                numerator: ethers.BigNumber.from('1'),  // number of sell
+                denominator: ethers.BigNumber.from(apiData.quantityFilled).add(ethers.BigNumber.from(apiData.quantityRemaining)), 
                 signature: apiData.rawData.signature,
                 extraData: '0x00',
             }
@@ -254,12 +275,12 @@ describe("aggregator matic buy 1155nft throught erc20 test", function () {
 
             const SeaportList = {
                 tokenAddress: apiData.price.currency.contract,
-                tokenValue: apiData.price.amount.raw,
+                tokenValue: apiData.price.netAmount.raw,
                 inputDate: inputdata,
                 nftStandard: 1155,   // identify from outside
                 nftAddress: apiData.tokenSetId.split(":")[1],
-                nftTokenId: apiData.tokenSetId.split(":")[2],
-                nftAmount: 1  //  number of buy
+                nftTokenId: 5,   //  get from users
+                nftAmount: 1  //  number of sell
             };
 
             SeaportLists.push(SeaportList);
@@ -274,11 +295,11 @@ describe("aggregator matic buy 1155nft throught erc20 test", function () {
             [SeaportLists]
         );
 
-        await sr.connect(alice)['execute(bytes,bytes[],uint256)']('0x10', [input], 2000000000);
+        await sr.connect(alice)['execute(bytes,bytes[],uint256)']('0x11', [input], 2000000000);
 
 
         console.log("after execute nft balance is:", await nft.balanceOf(alice._address, 0))
-        console.log("after execute usdc balance is:", await usdc.balanceOf(alice._address))
+        // console.log("after execute usdc balance is:", await usdc.balanceOf(alice._address))
 
     });
 });

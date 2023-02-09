@@ -143,13 +143,17 @@ abstract contract Dispatcher is
             // 0x10 <= command
         } else {
             if (command == Commands.SEAPORT_BUY) {
-                SeaportListStruct[] memory seaportLists = abi.decode(
+                SeaportStruct[] memory seaportLists = abi.decode(
                     inputs,
-                    (SeaportListStruct[])
+                    (SeaportStruct[])
                 );
                 HandleSeaport.handleSeaportBuy(seaportLists);
             } else if (command == Commands.SEAPORT_SELL) {
-                /// xxxxx
+                SeaportStruct[] memory seaportLists = abi.decode(
+                    inputs,
+                    (SeaportStruct[])
+                );
+                HandleSeaport.handleSeaportSell(seaportLists);
             } else {
                 revert InvalidCommandType(command);
             }

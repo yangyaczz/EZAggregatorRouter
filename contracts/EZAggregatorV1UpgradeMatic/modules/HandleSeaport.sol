@@ -12,7 +12,7 @@ abstract contract HandleSeaport is RouterImmutables {
     using SafeTransferLib for address;
     address constant Native_Token = 0x0000000000000000000000000000000000000000;
 
-    struct SeaportListStruct {
+    struct SeaportStruct {
         address tokenAddress;
         uint256 tokenValue;
         bytes inputDate;
@@ -25,10 +25,10 @@ abstract contract HandleSeaport is RouterImmutables {
     /// @notice buy NFT
     /// @param seaportLists data about list
     function handleSeaportBuy(
-        SeaportListStruct[] memory seaportLists
+        SeaportStruct[] memory seaportLists
     ) internal returns (bool success, bytes memory output) {
         for (uint256 i; i < seaportLists.length; ) {
-            SeaportListStruct memory seaportList = seaportLists[i];
+            SeaportStruct memory seaportList = seaportLists[i];
 
             // call seaport
             if (seaportList.tokenAddress == Native_Token) {
@@ -65,7 +65,6 @@ abstract contract HandleSeaport is RouterImmutables {
                         msg.sender,
                         seaportList.nftTokenId
                     );
-
                 } else if (seaportList.nftStandard == 1155) {
                     ERC1155 _nft = ERC1155(seaportList.nftAddress);
                     _nft.safeTransferFrom(
@@ -77,6 +76,79 @@ abstract contract HandleSeaport is RouterImmutables {
                     );
                 } else {
                     revert("HandleSeaport: nftStandard Error");
+                }
+            }
+
+            unchecked {
+                ++i;
+            }
+        }
+    }
+
+    /// @notice sell NFT
+    /// @param seaportOffers data about list
+    function handleSeaportSell(
+        SeaportStruct[] memory seaportOffers
+    ) internal returns (bool success, bytes memory output) {
+        for (uint256 i; i < seaportOffers.length; ) {
+            SeaportStruct memory seaportList = seaportOffers[i];
+
+            // transfer nft to this contract
+            if (seaportList.nftStandard == 721) {
+                ERC721 _nft = ERC721(seaportList.nftAddress);
+                _nft.safeTransferFrom(
+                    msg.sender,
+                    address(this),
+                    seaportList.nftTokenId
+                );
+                _nft.setApprovalForAll(SEAPORT, true);
+
+                // call seaport
+                (success, output) = SEAPORT.call(seaportList.inputDate);
+
+                // handle fail
+                if (!success) {
+                    _nft.safeTransferFrom(
+                        address(this),
+                        msg.sender,
+                        seaportList.nftTokenId
+                    );
+                }
+            } else if (seaportList.nftStandard == 1155) {
+                ERC1155 _nft = ERC1155(seaportList.nftAddress);
+                _nft.safeTransferFrom(
+                    msg.sender,
+                    address(this),
+                    seaportList.nftTokenId,
+                    seaportList.nftAmount,
+                    new bytes(0)
+                );
+                _nft.setApprovalForAll(SEAPORT, true);
+
+                // call seaport
+                (success, output) = SEAPORT.call(seaportList.inputDate);
+
+                // handle fail
+                if (!success) {
+                    _nft.safeTransferFrom(
+                        msg.sender,
+                        address(this),
+                        seaportList.nftTokenId,
+                        seaportList.nftAmount,
+                        new bytes(0)
+                    );
+                }
+            } else {
+                revert("HandleSeaport: nftStandard Error");
+            }
+
+            // if call success, transfer token back to user
+            if (success) {
+                if (seaportList.tokenAddress == Native_Token) {
+                    msg.sender.safeTransferETH(seaportList.tokenValue);
+                } else {
+                    ERC20 _token = ERC20(seaportList.tokenAddress);
+                    _token.safeTransfer(msg.sender, seaportList.tokenValue);
                 }
             }
 
