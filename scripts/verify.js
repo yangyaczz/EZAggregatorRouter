@@ -18,19 +18,17 @@ async function main() {
     // });
 
     await hre.run("verify:verify", {
-        address: "0x4ED5B37e9B4E9633d4A37a6291176535d307Fa6e",
+        address: "0xD56c887342a9eC9CA00Db00d8cd11E98cdcF4767",
         constructorArguments: [
             {
-                weth9: "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270",  // wmatic
-                reservoir: "0x819327e005A3ed85F7b634e195b8F25D4a2a45f8",  // ReservoirV6_0_0 matic
-                seaportModule: "0xb75Dfff7dA2A0c8E6Bb235b80d28f997152D06FC", // SeaportModule 
-                ezswap: "0x6D7fBa7979334fC173a42eA8FEF31698318a845A", // ezswaprouter matic
+                weth9: "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270",
+                reservoir: "0x819327e005A3ed85F7b634e195b8F25D4a2a45f8",  
+                seaportModule: "0xe225aFD0B78a265a60CCaEB1c1310e0016716E7B", 
+                ezswap: "0x6D7fBa7979334fC173a42eA8FEF31698318a845A", 
+                seaport: "0x00000000006c3852cbEf3e08E8dF289169EdE581" 
             }
         ],
     });
-
-
-
 }
 
 // We recommend this pattern to be able to use async/await everywhere

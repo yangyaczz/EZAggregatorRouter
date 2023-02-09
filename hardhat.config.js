@@ -72,8 +72,9 @@ module.exports = {
 
     matic: {
       // url: maticUrl,
-      url :"https://rpc.ankr.com/polygon",
-      accounts: [maticAccount2]
+      // url :"https://rpc.ankr.com/polygon",
+      url: "https://1rpc.io/matic",
+      accounts: [maticAccount]
     },
 
     mainnet: {
