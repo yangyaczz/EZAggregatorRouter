@@ -33,8 +33,8 @@ library Commands {
     uint256 constant COMMAND_PLACEHOLDER_0x0f = 0x0f;
 
     // Command Types where 0x10<=value<0x18, executed in the third nested-if block
-    uint256 constant COMMAND_PLACEHOLDER_0x10 = 0x10;
-    uint256 constant COMMAND_PLACEHOLDER_0x11 = 0x11;
+    uint256 constant SEAPORT_BUY = 0x10;
+    uint256 constant SEAPORT_SELL = 0x11;
     uint256 constant COMMAND_PLACEHOLDER_0x12 = 0x12;
     uint256 constant COMMAND_PLACEHOLDER_0x13 = 0x13;
     uint256 constant COMMAND_PLACEHOLDER_0x14 = 0x14;
