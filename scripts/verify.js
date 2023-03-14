@@ -18,14 +18,14 @@ async function main() {
     // });
 
     await hre.run("verify:verify", {
-        address: "0xD56c887342a9eC9CA00Db00d8cd11E98cdcF4767",
+        address: "0x9721166dd73C876D752C8203513eaDD80DFeA66e",
         constructorArguments: [
             {
                 weth9: "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270",
                 reservoir: "0x819327e005A3ed85F7b634e195b8F25D4a2a45f8",  
                 seaportModule: "0xe225aFD0B78a265a60CCaEB1c1310e0016716E7B", 
                 ezswap: "0x6D7fBa7979334fC173a42eA8FEF31698318a845A", 
-                seaport: "0x00000000006c3852cbEf3e08E8dF289169EdE581" 
+                seaport: "0x00000000000001ad428e4906aE43D8F9852d0dD6" 
             }
         ],
     });

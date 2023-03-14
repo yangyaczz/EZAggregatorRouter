@@ -9,7 +9,7 @@ async function main() {
         reservoir: "0x819327e005A3ed85F7b634e195b8F25D4a2a45f8",  // ReservoirV6_0_0 matic
         seaportModule: "0xe225aFD0B78a265a60CCaEB1c1310e0016716E7B", // SeaportModule 
         ezswap: "0x6D7fBa7979334fC173a42eA8FEF31698318a845A", // ezswaprouter matic
-        seaport: "0x00000000006c3852cbEf3e08E8dF289169EdE581"  // seaport
+        seaport: "0x00000000000001ad428e4906aE43D8F9852d0dD6"  // seaport
     };
 
 
