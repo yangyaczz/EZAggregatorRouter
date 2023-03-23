@@ -11,6 +11,7 @@ abstract contract HandleLSSVM {
         address collection;
         uint256[] tokenIds;
         uint256 tokenStandards;
+        uint256[] tokenAmounts;
     }
 
     /// @notice sell NFT
@@ -30,6 +31,7 @@ abstract contract HandleLSSVM {
         for (uint256 j = 0; j < sellNfts.length; ) {
             LSSVMSellNftStruct memory sellNft = sellNfts[j];
             uint256[] memory tokenIds = sellNft.tokenIds;
+            uint256[] memory tokenAmounts = sellNft.tokenAmounts;
             address token = sellNft.collection;
             uint256 tokenStandards = sellNft.tokenStandards;
             if (tokenStandards == 721) {
@@ -42,6 +44,19 @@ abstract contract HandleLSSVM {
                     );
                 }
                 ERC721(token).setApprovalForAll(protocol, true);
+            } else if (tokenStandards == 1155) {
+                for (uint256 i = 0; i < tokenIds.length; i++) {
+                    uint256 tokenId = tokenIds[i];
+                    uint256 tokenAmount = tokenAmounts[i];
+                    ERC1155(token).safeTransferFrom(
+                        nftOwner,
+                        address(this),
+                        tokenId,
+                        tokenAmount,
+                        ""
+                    );
+                }
+                ERC1155(token).setApprovalForAll(protocol, true);
             } else {
                 revert("HandleLSSVM:TokenStandard Error");
             }
@@ -58,6 +73,7 @@ abstract contract HandleLSSVM {
         for (uint256 k = 0; k < sellNfts.length; ) {
             LSSVMSellNftStruct memory sellNft = sellNfts[k];
             uint256[] memory tokenIds = sellNft.tokenIds;
+            uint256[] memory tokenAmounts = sellNft.tokenAmounts;
             address token = sellNft.collection;
             uint256 tokenStandards = sellNft.tokenStandards;
             if (tokenStandards == 721) {
@@ -68,6 +84,20 @@ abstract contract HandleLSSVM {
                             address(this),
                             nftOwner,
                             tokenId
+                        );
+                    }
+                }
+            } else if (tokenStandards == 1155) {
+                for (uint256 i = 0; i < tokenIds.length; i++) {
+                    uint256 tokenId = tokenIds[i];
+                    uint256 tokenAmount = tokenAmounts[i];
+                    if (ERC1155(token).balanceOf(address(this), tokenId) == tokenAmount) {
+                        ERC1155(token).safeTransferFrom(
+                            address(this),
+                            nftOwner,
+                            tokenId,
+                            tokenAmount,
+                            ""
                         );
                     }
                 }
