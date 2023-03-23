@@ -65,7 +65,9 @@ module.exports = {
 
     goerli: {
       url: goerliUrl,
-      accounts: [goerliAccount] 
+      accounts: [goerliAccount],
+      chainId: 5,
+      allowUnlimitedContractSize: true
     },
 
     matic: {
