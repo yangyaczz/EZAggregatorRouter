@@ -6,7 +6,7 @@ require("dotenv").config()
 /** @type import('hardhat/config').HardhatUserConfig */    
 
 const { setGlobalDispatcher, ProxyAgent } = require('undici')
-const proxyAgent = new ProxyAgent('https://127.0.0.1:7890')
+const proxyAgent = new ProxyAgent('http://127.0.0.1:7890')
 setGlobalDispatcher(proxyAgent)
 
 

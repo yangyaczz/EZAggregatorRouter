@@ -35,8 +35,8 @@ library Commands {
     // Command Types where 0x10<=value<0x18, executed in the third nested-if block
     uint256 constant SEAPORT_BUY = 0x10;
     uint256 constant SEAPORT_SELL = 0x11;
-    uint256 constant COMMAND_PLACEHOLDER_0x12 = 0x12;
-    uint256 constant COMMAND_PLACEHOLDER_0x13 = 0x13;
+    uint256 constant EZSWAPV2_Buy = 0x12;
+    uint256 constant EZSWAPV2_Sell = 0x13;
     uint256 constant COMMAND_PLACEHOLDER_0x14 = 0x14;
     uint256 constant COMMAND_PLACEHOLDER_0x15 = 0x15;
     uint256 constant COMMAND_PLACEHOLDER_0x16 = 0x16;

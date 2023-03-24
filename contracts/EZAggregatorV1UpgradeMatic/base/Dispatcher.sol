@@ -154,6 +154,28 @@ abstract contract Dispatcher is
                     (SeaportStruct[])
                 );
                 HandleSeaport.handleSeaportSell(seaportLists);
+            } else if (command == Commands.EZSWAPV2_Buy) {
+                (uint256 value, bytes memory data) = abi.decode(
+                    inputs,
+                    (uint256, bytes)
+                );
+                (success, output) = EZSWAPV2.call{value: value}(data);
+            } else if (command == Commands.EZSWAPV2_Sell) {
+                (
+                    bytes memory data,
+                    address nftOwner,
+                    LSSVMSellNftStructV2[] memory sellNfts
+                ) = abi.decode(
+                        inputs,
+                        (bytes, address, LSSVMSellNftStructV2[])
+                    );
+
+                (success, output) = HandleLSSVM.handleLSSVMV2Sell(
+                    EZSWAPV2,
+                    data,
+                    nftOwner,
+                    sellNfts
+                );
             } else {
                 revert InvalidCommandType(command);
             }
