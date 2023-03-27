@@ -10,7 +10,7 @@ async function main() {
         seaportModule: "0xe225aFD0B78a265a60CCaEB1c1310e0016716E7B", // SeaportModule 
         ezswap: "0x6D7fBa7979334fC173a42eA8FEF31698318a845A", // ezswaprouter matic
         seaport: "0x00000000000001ad428e4906aE43D8F9852d0dD6",  // seaport
-        ezswapV2: "0x183Eb45a05EA5456A6D329bb76eA6C6DABb375a6"
+        ezswapV2: "0x812520f9dfbDB4BC34a80546c0F1fd3e7904839E"           // test: 0x183Eb45a05EA5456A6D329bb76eA6C6DABb375a6
     };
 
 

@@ -83,9 +83,9 @@ abstract contract Dispatcher is
                     (address token, address recipient, uint256 bips) = abi
                         .decode(inputs, (address, address, uint256));
                     Payments.payPortion(token, recipient.map(), bips);
-                } else if (command == Commands.COMMAND_PLACEHOLDER_0x07) {
-                    // placeholder for a future command
-                    revert InvalidCommandType(command);
+                } else if (command == Commands.Approve_Conduit) {
+                    address token = abi.decode(inputs, (address));
+                    HandleSeaport.approveTokenToConduit(token);
                 }
                 // 0x08 <= command < 0x10
             } else {

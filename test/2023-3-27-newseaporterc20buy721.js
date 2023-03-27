@@ -15,7 +15,7 @@ describe("aggregator matic buy advance order", function () {
 
     let blocknumber = 40340100
     let mockAddress = "0x69734444A9c9954c21D83B5F062802909dC5112B";  //  whale
-    let nftAddress = "0x6b7134df79f3babf83584ea6219ffd4cb2747bbf"  // ufo
+    let nftAddress = "0xdb46d1dc155634fbc732f92e853b10b288ad5a1d"  // lens
 
     let wethAddress = '0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619'
     let seaportAddress = "0x00000000000001ad428e4906aE43D8F9852d0dD6"
@@ -25,6 +25,29 @@ describe("aggregator matic buy advance order", function () {
     let postDatas = [{
         "steps": [
             {
+                "id": "currency-approval",
+                "action": "Approve exchange contract",
+                "description": "A one-time setup transaction to enable trading",
+                "kind": "transaction",
+                "items": [
+                    {
+                        "status": "incomplete",
+                        "data": {
+                            "from": "0x59e0b0c67a8f14be8c5855c95cdd2ba95a7f2bbb",
+                            "to": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+                            "data": "0x095ea7b30000000000000000000000001e0049783f008a0085193e00003d00cd54003c71ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "permit",
+                "action": "Sign permits",
+                "description": "Sign permits for accessing the tokens in your wallet",
+                "kind": "signature",
+                "items": []
+            },
+            {
                 "id": "sale",
                 "action": "Confirm transaction in your wallet",
                 "description": "To purchase this item you must confirm the transaction and pay the gas fee",
@@ -33,13 +56,12 @@ describe("aggregator matic buy advance order", function () {
                     {
                         "status": "incomplete",
                         "orderIds": [
-                            "0x9b520148edd9c4440302e100fd535c674a1c9ff0883c581ef4649ae3091df7bd"
+                            "0x18cbd366eed50d66586092542922205bcc7b9266ea2ebb8206273f6273c2255a"
                         ],
                         "data": {
                             "from": "0x59e0b0c67a8f14be8c5855c95cdd2ba95a7f2bbb",
                             "to": "0x00000000000001ad428e4906ae43d8f9852d0dd6",
-                            "data": "0xfb0f3ee1000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000027bef8d36cb8000000000000000000000000000e619d091233580cc171e4afdad94d98c16fd5a0c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000006b7134df79f3babf83584ea6219ffd4cb2747bbf0000000000000000000000000000000000000000000000000000000000000c690000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000641a74db000000000000000000000000000000000000000000000000000000006443535b0000000000000000000000000000000000000000000000000000000000000000360c6ebe00000000000000000000000000000000000000001d1c355dbc93d22e0000007b02230091a7ed01230072f7006a004d60a8d4e71d599b8104250f00000000007b02230091a7ed01230072f7006a004d60a8d4e71d599b8104250f00000000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000024000000000000000000000000000000000000000000000000000000000000002e0000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000038d7ea4c680000000000000000000000000000000a26b00c1f0df003000390027140000faa71900000000000000000000000000000000000000000000000000470de4df8200000000000000000000000000004df17f9977a174214b247f0625ef8ca3bdc3a64000000000000000000000000000000000000000000000000000000000000000408cf0aa773465fc6608b20586962d7f1c3da1e85a0d3175e87608544ef92b1d8d93a35f96c37635b4589910e276854d1c39a07a5ee2d154adae74d63a9b38b01c",
-                            "value": "0x02c68af0bb140000"
+                            "data": "0xfb0f3ee100000000000000000000000000000000000000000000000000000000000000200000000000000000000000002791bca1f2de4661ed88a30c99a7a9449aa841740000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000cfb72bc0000000000000000000000005d240c929f7cd49625d207bf3334cc20e1450a8a0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000db46d1dc155634fbc732f92e853b10b288ad5a1d0000000000000000000000000000000000000000000000000000000000006ad800000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000006421bfa200000000000000000000000000000000000000000000000000000000644a9bfb0000000000000000000000000000000000000000000000000000000000000000360c6ebe00000000000000000000000000000000000000002cacd378293367d80000007b02230091a7ed01230072f7006a004d60a8d4e71d599b8104250f00000000007b02230091a7ed01230072f7006a004d60a8d4e71d599b8104250f00000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000024000000000000000000000000000000000000000000000000000000000000002a00000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000010b3640000000000000000000000000000a26b00c1f0df003000390027140000faa7190000000000000000000000000000000000000000000000000000000000000040c90c9154845a3a1f30391e7b0edfce2575d7571997b7545a77f9ff8f364800568d3f769b40d689aecf948c3f69a4b9e8312ae9a95fa801983c76e4c349c813c0"
                         }
                     }
                 ]
@@ -47,14 +69,14 @@ describe("aggregator matic buy advance order", function () {
         ],
         "path": [
             {
-                "orderId": "0x9b520148edd9c4440302e100fd535c674a1c9ff0883c581ef4649ae3091df7bd",
-                "contract": "0x6b7134df79f3babf83584ea6219ffd4cb2747bbf",
-                "tokenId": "3177",
+                "orderId": "0x18cbd366eed50d66586092542922205bcc7b9266ea2ebb8206273f6273c2255a",
+                "contract": "0xdb46d1dc155634fbc732f92e853b10b288ad5a1d",
+                "tokenId": "27352",
                 "quantity": 1,
                 "source": "opensea.io",
-                "currency": "0x0000000000000000000000000000000000000000",
-                "quote": 0.2,
-                "rawQuote": "200000000000000000"
+                "currency": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+                "quote": 218.9,
+                "rawQuote": "218900000"
             }
         ]
     }]
@@ -81,7 +103,7 @@ describe("aggregator matic buy advance order", function () {
         });
         alice = await ethers.provider.getSigner(mockAddress);
 
-        nft = new ethers.Contract(nftAddress, nft721ABI, alice);
+        nft = new ethers.Contract(nftAddress, nft721ABI, alice);   //
 
         weth = new ethers.Contract(wethAddress, wethABI, alice)
         usdc = new ethers.Contract(usdcAddress, wethABI, alice)
@@ -109,14 +131,6 @@ describe("aggregator matic buy advance order", function () {
 
     it("router  buy", async () => {
 
-        ///////////////////// 1 approve
-        await usdc.approve(sr.address, ethers.constants.MaxUint256)
-        await usdc.approve(seaport.address, ethers.constants.MaxUint256)
-
-        await weth.approve(sr.address, ethers.constants.MaxUint256)
-        await weth.approve(seaport.address, ethers.constants.MaxUint256)
-
-
         console.log("router address:", sr.address)
         console.log("before execute nft balance is:", await nft.balanceOf(alice._address))
         console.log("before execute weth balance is:", await weth.balanceOf(alice._address))
@@ -128,9 +142,6 @@ describe("aggregator matic buy advance order", function () {
 
         await weth.approve(sr.address, ethers.constants.MaxUint256)
         await weth.approve(seaport.address, ethers.constants.MaxUint256)
-
-
-
         ///////////////////// 2 encode date
         let SeaportLists = [];
         let totalValue = ethers.BigNumber.from('0');

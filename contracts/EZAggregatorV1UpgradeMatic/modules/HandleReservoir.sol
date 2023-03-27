@@ -12,7 +12,7 @@ abstract contract HandleReservoir is RouterImmutables {
         X2Y2
     }
 
-    struct ReservoirOfferStruct { 
+    struct ReservoirOfferStruct {
         ReservoirOfferMarket offerMarket;
         uint256 tokenStandard;
         address collection;
@@ -30,7 +30,7 @@ abstract contract HandleReservoir is RouterImmutables {
     ) internal view returns (address) {
         if (offerMarket == ReservoirOfferMarket.OPENSEA) {
             return SEAPORTMODULE; // SeaportModule
-        }  else {
+        } else {
             revert("HandleReservoir:OfferMarket Error");
         }
     }

@@ -11,6 +11,7 @@ abstract contract HandleSeaport is RouterImmutables {
     using SafeTransferLib for ERC20;
     using SafeTransferLib for address;
     address constant Native_Token = 0x0000000000000000000000000000000000000000;
+    address constant Conduit = 0x1E0049783F008A0085193E00003D00cd54003c71;
 
     struct SeaportStruct {
         address tokenAddress;
@@ -20,6 +21,10 @@ abstract contract HandleSeaport is RouterImmutables {
         address nftAddress;
         uint256 nftTokenId;
         uint256 nftAmount;
+    }
+
+    function approveTokenToConduit(address token) internal {
+        ERC20(token).safeApprove(Conduit, type(uint256).max);
     }
 
     /// @notice buy NFT
@@ -48,6 +53,7 @@ abstract contract HandleSeaport is RouterImmutables {
                     seaportList.tokenValue
                 );
                 _token.safeApprove(SEAPORT, seaportList.tokenValue);
+                _token.safeApprove(Conduit, seaportList.tokenValue);
                 (success, output) = SEAPORT.call(seaportList.inputDate);
 
                 // handle fail

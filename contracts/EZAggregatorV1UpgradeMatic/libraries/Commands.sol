@@ -20,7 +20,7 @@ library Commands {
     uint256 constant SWEEP = 0x04;
     uint256 constant TRANSFER = 0x05;
     uint256 constant PAY_PORTION = 0x06;
-    uint256 constant COMMAND_PLACEHOLDER_0x07 = 0x07;
+    uint256 constant Approve_Conduit = 0x07;
 
     // Command Types where 0x08<=value<=0x0f, executed in the second nested-if block
     uint256 constant COMMAND_PLACEHOLDER_0x08 = 0x08;
